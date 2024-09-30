@@ -10,6 +10,8 @@ require 'controllers/DashboardController.php';
 
 //Cria instânciais dos controladores para utilizar seus métodos 
 $authController = new AuthController(); 
+$userController = new UserController(); 
+
 //Instância 
 
 //Coleta a ação da URL se não houver definida, usa "login por padrão"
