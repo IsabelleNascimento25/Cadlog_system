@@ -83,11 +83,11 @@ Explicação: A primeira etapa da aplicação envolve a criação do banco de da
 <br><br> A tabela usuarios possui os seguintes campos:
 <br>
 id: Identificador único do usuário.<br>
-nome: Nome do usuário.<br>
-email: Endereço de email, que deve ser único para cada usuário.<br>
-senha: Senha criptografada do usuário.<br>
-perfil: Tipo de usuário (admin, gestor ou colaborador).<br>
-created_at: Timestamp que registra a data e hora de criação do registro.<br>
+* nome: Nome do usuário.<br>
+* email: Endereço de email, que deve ser único para cada usuário.<br>
+* senha: Senha criptografada do usuário.<br>
+* perfil: Tipo de usuário (admin, gestor ou colaborador).<br>
+* created_at: Timestamp que registra a data e hora de criação do registro.<br>
 <br><br>
 2. Conexão com o Banco de Dados.<br>
 <br>
