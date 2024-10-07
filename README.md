@@ -15,7 +15,7 @@
 # Projeto 
 O CadLogin-System é um sistema de autenticação de usuários desenvolvido em PHP, que permite realizar o cadastro, login e gerenciamento de usuários. Ele foi criado com a finalidade de servir como exemplo de um sistema de controle de acesso com diferentes perfis de usuário, proporcionando uma solução completa de CRUD (Criar, Ler, Atualizar e Excluir) para pequenas aplicações web.
 <br><br>
-Disciplina:Programação Web I. <br>
+Disciplina:Programação Web III. <br>
 Professor: Leonardo Santiago Sidon da Rocha.
 
 ## Descrição
