@@ -59,7 +59,7 @@ O banco de dados armazena informações dos usuários, incluindo seus nomes, ema
 
   <img src="img/banco_de_dados.png" width="200%"> <br>
 
-## Estrutura do Projeto
+# Estrutura do Projeto
 1. Banco de Dados
 Código:
 <br>
@@ -264,7 +264,7 @@ Fluxo da Aplicação:<br>
 
 
 
-## Funcionalidades
+# Funcionalidades
 
 
 | Método/Comando                               | Descrição                                                                                       | Exemplo                                                      |
@@ -296,7 +296,7 @@ Fluxo da Aplicação:<br>
 | [**include**](https://www.php.net/manual/pt_BR/function.include.php)                           | Inclui um arquivo PHP, como uma view para exibir um formulário de registro.                  | `include 'views/register.php';`                             |
 
 
-## Tecnologias utilizadas
+# Tecnologias utilizadas
 
 `PHP`: Linguagem de programação utilizada para o back-end, gerenciando a lógica de controle e interação com o banco de dados.<br>
 `MySQL`: Banco de dados relacional usado para armazenar e gerenciar os dados dos usuários.<br>
@@ -312,7 +312,7 @@ Aluna: <br>
 
 * Professor Leonardo Santiago Sidon da Rocha.
 
-## Contribuindo no GitHub
+# Contribuindo no GitHub
 
 **Se você encontrou um problema, deseja sugerir melhorias ou simplesmente quer dar um feedback sobre o projeto, você pode contribuir fazendo um fork do repositório. Após fazer o fork, você pode:**
 
