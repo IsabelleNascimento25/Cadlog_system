@@ -90,9 +90,9 @@ id: Identificador único do usuário.<br>
 <br><br>
 2. Conexão com o Banco de Dados.<br>
 <br>
-```
-class Database {
-    private static $instance = null;
+
+     class Database {
+     private static $instance = null;
 
     public static function getConnection() {
         if (!self::$instance) {
@@ -107,7 +107,6 @@ class Database {
         return self::$instance;
         }
     }
-```
 <br>
 Explicação: Aqui, implementamos o padrão Singleton para garantir que haja apenas uma instância da conexão com o banco de dados durante toda a execução da aplicação. O método getConnection() usa PDO para se conectar ao banco de dados MySQL, e configura o modo de erro para lançar exceções em caso de problemas, facilitando a depuração.
 <br><br>
@@ -115,8 +114,7 @@ Explicação: Aqui, implementamos o padrão Singleton para garantir que haja ape
 <br>
 
 ```
-php
-Copiar código
+
 class User {
     public static function findByEmail($email) {
         $conn = Database::getConnection();
@@ -147,8 +145,6 @@ create($data): Insere um novo usuário no banco de dados utilizando os dados for
 4. Controller de Autenticação (AuthController)<br><br>
 ```
 
-php
-Copiar código
 require_once 'models/user.php';
 
 class AuthController {
