@@ -64,7 +64,6 @@ O banco de dados armazena informações dos usuários, incluindo seus nomes, ema
 Código:
 <br>
 sql
-Copiar código
 CREATE DATABASE sistema_usuarios;
 
 USE sistema_usuarios;
