@@ -18,12 +18,12 @@ O CadLogin-System é um sistema de autenticação de usuários desenvolvido em P
 Disciplina:Programação Web III. <br>
 Professor: Leonardo Santiago Sidon da Rocha.
 
-## Descrição
+# Descrição
 
 
 O **Sistema de Gerenciamento de Usuários** é uma aplicação web que permite o registro e autenticação de usuários, gerenciando diferentes perfis de acesso (admin, gestor, colaborador). A interface do sistema foi projetada para ser intuitiva e responsiva, proporcionando uma experiência de usuário fluida.
 
-# Exemplos das Telas
+## Exemplos das Telas
 
 ### 1. Tela de Registro de Usuário
 
