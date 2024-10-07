@@ -304,6 +304,7 @@ Fluxo da Aplicação:<br>
 `JavaScript`: Utilizado para melhorar a experiência do usuário, com validações e interações dinâmicas no front-end.<br><br>
 `Apache/Nginx`: Servidores web compatíveis para rodar o sistema.<br><br>
 
+#Autores
 <br>
 Aluna: <br>
 <br>
