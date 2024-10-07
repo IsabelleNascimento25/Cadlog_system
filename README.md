@@ -298,11 +298,11 @@ Fluxo da Aplicação:<br>
 
 # Tecnologias utilizadas
 
-`PHP`: Linguagem de programação utilizada para o back-end, gerenciando a lógica de controle e interação com o banco de dados.<br>
-`MySQL`: Banco de dados relacional usado para armazenar e gerenciar os dados dos usuários.<br>
-`HTML/CSS`: Estrutura e estilização das páginas de interface com o usuário.<br>
-`JavaScript`: Utilizado para melhorar a experiência do usuário, com validações e interações dinâmicas no front-end.<br>
-`Apache/Nginx`: Servidores web compatíveis para rodar o sistema.<br>
+`PHP`: Linguagem de programação utilizada para o back-end, gerenciando a lógica de controle e interação com o banco de dados.<br><br>
+`MySQL`: Banco de dados relacional usado para armazenar e gerenciar os dados dos usuários.<br><br>
+`HTML/CSS`: Estrutura e estilização das páginas de interface com o usuário.<br><br>
+`JavaScript`: Utilizado para melhorar a experiência do usuário, com validações e interações dinâmicas no front-end.<br><br>
+`Apache/Nginx`: Servidores web compatíveis para rodar o sistema.<br><br>
 
 <br>
 Aluna: <br>
