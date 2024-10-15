@@ -22,6 +22,16 @@ switch($action){
     case 'login':
         //Verifica a ação solicitada e chama o método apropriado do controlador
         $authController -> login();//Chama o método login do controlador de autenticação
+        break; 
+    case 'register':
+            $userController->register();
+            break;
+
+    case 'dashboard': 
+        $dash
+    default: 
+    $authController ->login();
+    break;
         
 }
 
