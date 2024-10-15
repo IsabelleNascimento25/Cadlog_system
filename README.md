@@ -15,21 +15,60 @@
 # Projeto 
 O CadLogin-System é um sistema de autenticação de usuários desenvolvido em PHP, que permite realizar o cadastro, login e gerenciamento de usuários. Ele foi criado com a finalidade de servir como exemplo de um sistema de controle de acesso com diferentes perfis de usuário, proporcionando uma solução completa de CRUD (Criar, Ler, Atualizar e Excluir) para pequenas aplicações web.
 <br><br>
-Disciplina:Programação Web I. <br>
+Disciplina:Programação Web III. <br>
 Professor: Leonardo Santiago Sidon da Rocha.
 
-## Descrição
+# Descrição
 
-## Estrutura do Projeto
+
+O **Sistema de Gerenciamento de Usuários** é uma aplicação web que permite o registro e autenticação de usuários, gerenciando diferentes perfis de acesso (admin, gestor, colaborador). A interface do sistema foi projetada para ser intuitiva e responsiva, proporcionando uma experiência de usuário fluida.
+
+## Exemplos das Telas
+
+### 1. Tela de Registro de Usuário
+
+Esta tela permite que novos usuários se cadastrem no sistema. O formulário coleta informações como nome, email, senha e perfil.
+
+**Exemplo de Formulário de Registro:**
+
+  <img src="img/login.png" width="200%"> <br>
+
+### 2. Tela de Login
+
+A tela de login permite que usuários registrados acessem o sistema utilizando seu email e senha. Ela inclui um link para a tela de registro, caso o usuário ainda não tenha uma conta.
+
+**Exemplo de Formulário de Login:**
+
+  <img src="img/registro.png" width="200%"> <br>
+
+### 3. Tela Inicial do Sistema
+
+Após o login, o usuário é direcionado para a tela inicial, onde pode acessar funcionalidades de acordo com seu perfil. Por exemplo, um administrador pode ter acesso a opções de gerenciamento de usuários, enquanto um colaborador pode visualizar suas tarefas.
+
+**Exemplo de Tela Inicial:**
+
+(ainda nao formulada)
+
+---
+
+## Banco de Dados
+
+O banco de dados armazena informações dos usuários, incluindo seus nomes, emails, senhas e perfis. 
+
+**Exemplo da Estrutura do Banco de Dados:**
+
+  <img src="img/banco_de_dados.png" width="200%"> <br>
+
+# Estrutura do Projeto
 1. Banco de Dados
 Código:
-
+<br>
 sql
-Copiar código
 CREATE DATABASE sistema_usuarios;
 
 USE sistema_usuarios;
 
+```
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -38,21 +77,22 @@ CREATE TABLE usuarios (
     perfil ENUM('admin', 'gestor', 'colaborador') NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-Explicação: A primeira etapa da aplicação envolve a criação do banco de dados sistema_usuarios, onde serão armazenados os dados dos usuários. A tabela usuarios possui os seguintes campos:
+```
+Explicação: A primeira etapa da aplicação envolve a criação do banco de dados sistema_usuarios, onde serão armazenados os dados dos usuários. 
+<br><br> A tabela usuarios possui os seguintes campos:
+<br>
+id: Identificador único do usuário.<br>
+* nome: Nome do usuário.<br>
+* email: Endereço de email, que deve ser único para cada usuário.<br>
+* senha: Senha criptografada do usuário.<br>
+* perfil: Tipo de usuário (admin, gestor ou colaborador).<br>
+* created_at: Timestamp que registra a data e hora de criação do registro.<br>
+<br><br>
+2. Conexão com o Banco de Dados.<br>
+<br>
 
-id: Identificador único do usuário.
-nome: Nome do usuário.
-email: Endereço de email, que deve ser único para cada usuário.
-senha: Senha criptografada do usuário.
-perfil: Tipo de usuário (admin, gestor ou colaborador).
-created_at: Timestamp que registra a data e hora de criação do registro.
-2. Conexão com o Banco de Dados
-Código:
-
-php
-Copiar código
-class Database {
-    private static $instance = null;
+     class Database {
+     private static $instance = null;
 
     public static function getConnection() {
         if (!self::$instance) {
@@ -65,15 +105,16 @@ class Database {
             self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         return self::$instance;
+        }
     }
-}
+<br>
 Explicação: Aqui, implementamos o padrão Singleton para garantir que haja apenas uma instância da conexão com o banco de dados durante toda a execução da aplicação. O método getConnection() usa PDO para se conectar ao banco de dados MySQL, e configura o modo de erro para lançar exceções em caso de problemas, facilitando a depuração.
-
+<br><br>
 3. Modelo de Usuário (User Model)
-Código:
+<br>
 
-php
-Copiar código
+```
+
 class User {
     public static function findByEmail($email) {
         $conn = Database::getConnection();
@@ -94,17 +135,16 @@ class User {
         $stmt = $conn->prepare("INSERT INTO usuarios (nome, email, senha, perfil) VALUES (:nome, :email, :senha, :perfil)");
         $stmt->execute($data);
     }
-}
+    }
+```
 Explicação: A classe User representa o modelo de usuário, responsável por interagir diretamente com o banco de dados. Ela possui três métodos:
+<br>
+findByEmail($email): Busca um usuário pelo email, retornando os dados do usuário ou null se não encontrar.<br>
+find($id): Busca um usuário pelo ID.<br>
+create($data): Insere um novo usuário no banco de dados utilizando os dados fornecidos (nome, email, senha e perfil).<br><br>
+4. Controller de Autenticação (AuthController)<br><br>
+```
 
-findByEmail($email): Busca um usuário pelo email, retornando os dados do usuário ou null se não encontrar.
-find($id): Busca um usuário pelo ID.
-create($data): Insere um novo usuário no banco de dados utilizando os dados fornecidos (nome, email, senha e perfil).
-4. Controller de Autenticação (AuthController)
-Código:
-
-php
-Copiar código
 require_once 'models/user.php';
 
 class AuthController {
@@ -118,13 +158,15 @@ class AuthController {
         }
     }
 }
+```
 Explicação: A classe AuthController gerencia o processo de login. Ela verifica se o formulário foi enviado via POST, busca o usuário pelo email usando o modelo User, e a validação da senha poderia ser adicionada aqui (por exemplo, utilizando password_verify() para comparar a senha fornecida com a senha criptografada no banco de dados).
+<br><br>
+5. Controller de Usuário (UserController)<br>
 
-5. Controller de Usuário (UserController)
-Código:
 
-php
-Copiar código
+```
+
+
 class UserController {
     public function register() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -141,13 +183,12 @@ class UserController {
         }
     }
 }
+```
 Explicação: A classe UserController é responsável pelo processo de registro de novos usuários. Ela verifica se a requisição foi enviada via POST, coleta os dados do formulário, criptografa a senha com password_hash(), e usa o método create() da classe User para salvar o novo usuário no banco de dados. Se a requisição for GET, ela carrega a página de registro.
+<br><br>
+6. Formulário de Registro de Usuário (Front-end)<br>
 
-6. Formulário de Registro de Usuário (Front-end)
-Código:
-
-html
-Copiar código
+```
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -183,11 +224,12 @@ Copiar código
     </div>
 </body>
 </html>
+```
 Explicação: Este é o formulário de registro que será exibido para o usuário. Ele coleta nome, email, senha e perfil (Admin, Gestor ou Colaborador) e os envia ao servidor via POST. O estilo foi configurado para centralizar e melhorar a experiência visual.
 
 7. Formulário de Login (Front-end)
-Código:
 
+```
 html
 Copiar código
 <!DOCTYPE html>
@@ -211,18 +253,19 @@ Copiar código
 </main>
 </body>
 </html>
+```
 Explicação: Esta página permite que os usuários façam login no sistema. Ela coleta o email e a senha e envia os dados ao AuthController via POST. Se o usuário ainda não tiver uma conta, há um link para o formulário de registro.
+<br>
+Fluxo da Aplicação:<br>
+* O usuário acessa a página de login ou registro.<br>
+* No registro, os dados são enviados ao UserController, que os insere no banco de dados.<br>
+* No login, os dados são enviados ao AuthController, que verifica a existência do usuário e a validade da senha.<br>
+* A aplicação utiliza o padrão MVC, onde o Modelo (User) lida com a lógica de interação com o banco de dados, o Controller (AuthController, UserController) lida com o fluxo de entrada e saída de dados, e as Views (formulários) gerenciam a interface com o usuário.<br>
 
-Fluxo da Aplicação:
-O usuário acessa a página de login ou registro.
-No registro, os dados são enviados ao UserController, que os insere no banco de dados.
-No login, os dados são enviados ao AuthController, que verifica a existência do usuário e a validade da senha.
-A aplicação utiliza o padrão MVC, onde o Modelo (User) lida com a lógica de interação com o banco de dados, o Controller (AuthController, UserController) lida com o fluxo de entrada e saída de dados, e as Views (formulários) gerenciam a interface com o usuário.
 
 
+# Funcionalidades
 
-## Funcionalidades
-Aqui está a tabela formatada de acordo com seu exemplo, removendo repetições e mantendo o formato desejado:
 
 | Método/Comando                               | Descrição                                                                                       | Exemplo                                                      |
 |----------------------------------------------|-------------------------------------------------------------------------------------------------|--------------------------------------------------------------|
@@ -253,23 +296,24 @@ Aqui está a tabela formatada de acordo com seu exemplo, removendo repetições 
 | [**include**](https://www.php.net/manual/pt_BR/function.include.php)                           | Inclui um arquivo PHP, como uma view para exibir um formulário de registro.                  | `include 'views/register.php';`                             |
 
 
-## Tecnologias utilizadas
+# Tecnologias utilizadas
 
-`PHP`: Linguagem de programação utilizada para o back-end, gerenciando a lógica de controle e interação com o banco de dados.
-`MySQL`: Banco de dados relacional usado para armazenar e gerenciar os dados dos usuários.
-`HTML/CSS`: Estrutura e estilização das páginas de interface com o usuário.
-`JavaScript`: Utilizado para melhorar a experiência do usuário, com validações e interações dinâmicas no front-end.
-`Apache/Nginx`: Servidores web compatíveis para rodar o sistema.
+`PHP`: Linguagem de programação utilizada para o back-end, gerenciando a lógica de controle e interação com o banco de dados.<br><br>
+`MySQL`: Banco de dados relacional usado para armazenar e gerenciar os dados dos usuários.<br><br>
+`HTML/CSS`: Estrutura e estilização das páginas de interface com o usuário.<br><br>
+`JavaScript`: Utilizado para melhorar a experiência do usuário, com validações e interações dinâmicas no front-end.<br><br>
+`Apache/Nginx`: Servidores web compatíveis para rodar o sistema.<br><br>
 
+#Autores
 <br>
 Aluna: <br>
 <br>
- <img src="image/isabelle.png" width="60px"> Isabelle Nascimento de Oliveira <br>
+ <img src="img/isabelle.png" width="60px"> Isabelle Nascimento de Oliveira <br>
 <br>
-* Professor Anderson Macedo<br>
+
 * Professor Leonardo Santiago Sidon da Rocha.
 
-## Contribuindo no GitHub
+# Contribuindo no GitHub
 
 **Se você encontrou um problema, deseja sugerir melhorias ou simplesmente quer dar um feedback sobre o projeto, você pode contribuir fazendo um fork do repositório. Após fazer o fork, você pode:**
 
