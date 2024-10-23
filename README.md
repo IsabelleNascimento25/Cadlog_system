@@ -758,16 +758,17 @@ A função User::getAll() é usada para buscar todos os usuários cadastrados no
 `JavaScript`: Utilizado para melhorar a experiência do usuário, com validações e interações dinâmicas no front-end.<br><br>
 `Apache/Nginx`: Servidores web compatíveis para rodar o sistema.<br><br>
 
-#Autores
-<br>
-Aluna: <br>
-<br>
- <img src="img/isabelle.png" width="60px"> Isabelle Nascimento de Oliveira <br>
-<br>
+# Autores
 
-* Professor Leonardo Santiago Sidon da Rocha.
+* Aluna<br><br>
+<img src="img/isabelle.png" width="60px"><br> Isabelle Nascimento de Oliveira <br>
+[Acesse o GitHub](https://github.com/IsabelleNascimento25)  
 
+ * Professor<br><br>
+<img src="img/leonardo.png" width="60px"><br>Leonardo Rocha  <br>
+[Acesse o GitHub](https://github.com/LeonardoRochaMarista)
 # Contribuindo no GitHub
+
 
 **Se você encontrou um problema, deseja sugerir melhorias ou simplesmente quer dar um feedback sobre o projeto, você pode contribuir fazendo um fork do repositório. Após fazer o fork, você pode:**
 
