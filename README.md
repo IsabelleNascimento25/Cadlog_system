@@ -27,11 +27,11 @@ O **Sistema de Gerenciamento de Usuários** é uma aplicação web que permite o
 
 ### 1. Tela de Registro de Usuário
 
-Esta tela permite que novos usuários se cadastrem no sistema. O formulário coleta informações como nome, email, senha e perfil.
+Esta tela permite que novos usuários se cadastrem no sistema. O formulário coleta informações como nome, e-mail, senha e perfil, permitindo que você escolha entre as opções de admin, gestor ou colaborador.
 
 **Exemplo de Formulário de Registro:**
 
-  <img src="img/login.png" width="200%"> <br>
+  <img src="img/cadastro.png" width="200%"> <br>
 
 ### 2. Tela de Login
 
@@ -39,17 +39,32 @@ A tela de login permite que usuários registrados acessem o sistema utilizando s
 
 **Exemplo de Formulário de Login:**
 
-  <img src="img/registro.png" width="200%"> <br>
+  <img src="img/login.png" width="200%"> <br>
 
 ### 3. Tela Inicial do Sistema
 
 Após o login, o usuário é direcionado para a tela inicial, onde pode acessar funcionalidades de acordo com seu perfil. Por exemplo, um administrador pode ter acesso a opções de gerenciamento de usuários, enquanto um colaborador pode visualizar suas tarefas.
 
+
+  **Exemplo de Tela Inicial do gestor:**
+
+
+  **Exemplo de Tela Inicial do colaborador:**
+  
+
+**Exemplo de Tela Inicial do admin:**
+Aqui 
+
+  <img src="img/inicio.png" width="200%"> <br>
+
+
+
+Após o login, o usuário é direcionado para a tela inicial, onde pode acessar funcionalidades de acordo com seu perfil. Por exemplo, um administrador pode ter acesso a opções de gerenciamento de usuários, enquanto um colaborador pode visualizar suas tarefas.
+
+
 **Exemplo de Tela Inicial:**
 
-(ainda nao formulada)
 
----
 
 ## Banco de Dados
 
@@ -184,7 +199,7 @@ class UserController {
     }
 }
 ```
-Explicação: A classe UserController é responsável pelo processo de registro de novos usuários. Ela verifica se a requisição foi enviada via POST, coleta os dados do formulário, criptografa a senha com password_hash(), e usa o método create() da classe User para salvar o novo usuário no banco de dados. Se a requisição for GET, ela carrega a página de registro.
+Explicação:A classe UserController é responsável pelo processo de registro de novos usuários. Ela verifica se a requisição foi enviada via POST, coleta os dados do formulário, criptografa a senha com password_hash(), e usa o método create() da classe User para salvar o novo usuário no banco de dados. Se a requisição for GET, ela carrega a página de registro.
 <br><br>
 6. Formulário de Registro de Usuário (Front-end)<br>
 
@@ -230,8 +245,7 @@ Explicação: Este é o formulário de registro que será exibido para o usuári
 7. Formulário de Login (Front-end)
 
 ```
-html
-Copiar código
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -262,6 +276,446 @@ Fluxo da Aplicação:<br>
 * No login, os dados são enviados ao AuthController, que verifica a existência do usuário e a validade da senha.<br>
 * A aplicação utiliza o padrão MVC, onde o Modelo (User) lida com a lógica de interação com o banco de dados, o Controller (AuthController, UserController) lida com o fluxo de entrada e saída de dados, e as Views (formulários) gerenciam a interface com o usuário.<br>
 
+8. Script Principal (index.php)
+
+```
+<?php
+
+// Inclui arquivos de controlador para lidar com diferentes ações
+require 'controllers/AuthController.php';
+require 'controllers/UserController.php';
+require 'controllers/DashboardController.php';
+
+// Cria instâncias dos controladores para utilizar seus métodos
+$authController = new AuthController();
+$userController = new UserController();
+$dashboardController = new DashboardController();
+
+// Coleta a ação da URL, se não houver nenhuma ação definida, usa 'login' por padrão
+$action = $_GET['action'] ?? 'login';
+
+// Verifica a ação solicitada e chama o método apropriado do controlador
+switch ($action) {
+    case 'login':
+        $authController->login();
+        break;
+    case 'register':
+        $userController->register();
+        break;
+    case 'dashboard':
+        $dashboardController->index();
+        break;
+    case 'logout':
+        $authController->logout();
+        break;
+    case 'list':
+        $userController->list();
+        break;
+    default:
+        $authController->login();
+        break;
+}
+?>
+```
+Explicação:
+Este script atua como o ponto de entrada para a aplicação, gerenciando as requisições e redirecionando para os controladores apropriados com base na ação solicitada na URL.
+
+Conclusão
+Essa documentação cobre a estrutura básica da aplicação, incluindo o banco de dados, a lógica de back-end (controladores e modelos) e a interface de usuário (HTML). Você pode expandir esta aplicação adicionando funcionalidades como recuperação de senha, confirmação de email e permissões de acesso mais granular.
+<br><br>
+9. Página de Dashboard
+
+Código HTML e PHP:
+
+```
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #F0F2F5; /* Cor de fundo consistente */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+            margin: 0;
+        }
+
+        /* Caixa de conteúdo */
+        .container {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            transition: transform 0.3s ease; /* Adicionando transição */
+        }
+
+        /* Efeito hover para aumentar a caixa */
+        .container:hover {
+            transform: scale(1.05);
+        }
+
+        /* Título */
+        h1 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        /* Parágrafo */
+        p {
+            color: #6D6D6D;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        /* Botão */
+        .btn {
+            display: inline-block;
+            background-color: #333;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin-top: 10px; /* Margem superior */
+        }
+
+        /* Efeito hover no botão */
+        .btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Cores para diferentes perfis */
+        body.admin {
+            background-color: #FBE7C6;
+        }
+
+        body.gestor {
+            background-color: #E6E6FA;
+        }
+
+        body.colaborador {
+            background-color: #FFDDC1;
+        }
+
+        /* Link para logout */
+        a {
+            display: block;
+            margin-top: 15px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease, font-size 0.3s ease;
+        }
+
+        /* Efeito hover no link */
+        a:hover {
+            color: #0056b3;
+            font-size: 1.05rem;
+        }
+
+        /* Animação de transição suave ao abrir */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
+</head>
+
+<body class="<?=$_SESSION['perfil']?>"> <!-- Define a classe com base no perfil -->
+    <div class="container">
+        <h1>Bem-vindo, <?=$_SESSION['perfil']?>!</h1>
+        <p>Esta é a visão do perfil <?=$_SESSION['perfil']?>.</p>
+
+        <?php if($_SESSION['perfil'] == 'admin'): ?>
+            <a href="index.php?action=list" class="btn">Gerenciar Usuários (Admin)</a>
+        <?php elseif($_SESSION['perfil'] == 'gestor'): ?>
+            <a href="index.php?action=list" class="btn">Gerenciar Usuários (Gestor)</a>
+            <p>Área exclusiva do Gestor.</p>
+        <?php else: ?>
+            <p>Área exclusiva do Colaborador.</p>
+        <?php endif; ?>
+
+        <a href="index.php?action=logout" class="btn">Logout</a>
+    </div>
+</body>
+
+</html>
+```
+Explicação:
+Essa página de Dashboard exibe uma interface dinâmica para os usuários autenticados com base no seu perfil (Admin, Gestor ou Colaborador).
+
+Estrutura HTML: A página usa HTML e PHP embutido para verificar o perfil do usuário via $_SESSION['perfil']. Dependendo do perfil, a página exibe um conteúdo específico:
+<br>
+Admin: Acesso à gestão de usuários.<br>
+Gestor: Acesso à gestão de usuários e uma área exclusiva.<br>
+Colaborador: Área exclusiva para colaboradores.<br>
+
+# Atualização do Roteamento
+Com essa nova página de Dashboard, o controlador DashboardController deve ser atualizado para garantir que ele carregue essa interface de acordo com o perfil do usuário autenticado.
+
+Controller de Dashboard (DashboardController):
+
+```
+class DashboardController {
+    public function index() {
+        session_start();
+
+        if (!isset($_SESSION['usuario_id'])) {
+            header('Location: index.php?action=login');
+            exit();
+        }
+
+        include 'views/dashboard.php';
+    }
+}
+```
+Explicação:
+O método index() do DashboardController inicia uma sessão e verifica se o usuário está autenticado. Se o usuario_id não estiver presente na sessão, ele redireciona o usuário para a página de login.
+Caso o usuário esteja autenticado, o método inclui a página de Dashboard (dashboard.php), onde o conteúdo é exibido com base no perfil do usuário.
+
+10. Página de Lista de Usuários
+Código HTML e PHP:
+<br><br>
+```
+<?php
+session_start();
+
+if (isset($_SESSION['perfil'])):
+?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Usuários</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #F0F2F5; /* Cor de fundo consistente */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            transition: transform 0.3s ease; /* Adicionando transição */
+        }
+
+        /* Efeito hover para aumentar a caixa */
+        .container:hover {
+            transform: scale(1.05);
+        }
+
+        h2 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        /* Estilo das links de ação */
+        a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+
+        /* Botão de voltar */
+        .btn {
+            display: inline-block;
+            background-color: #333;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Animação de transição suave ao abrir */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
+</head>
+
+<body class="<?= $_SESSION['perfil'] ?>"> <!-- Define a classe com base no perfil do usuário -->
+    <div class="container">
+        <h2>Lista de Usuários</h2>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Perfil</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($users as $user): ?>
+                <tr>
+                    <td><?= $user['id'] ?></td>
+                    <td><?= $user['nome'] ?></td>
+                    <td><?= $user['email'] ?></td>
+                    <td><?= $user['perfil'] ?></td>
+                    <td>
+                        <?php if ($_SESSION['perfil'] == 'admin' || $_SESSION['perfil'] == 'gestor'): ?>
+                            <a href="">Editar</a>
+                        <?php endif; ?>
+
+                        <?php if ($_SESSION['perfil'] == 'admin'): ?>
+                            <a href="">Excluir</a>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <a href="index.php?action=dashboard" class="btn">Voltar ao Dashboard</a>
+    </div>
+</body>
+
+</html>
+
+<?php else: ?>
+    <p>Erro: Você não tem permissão para visualizar esta página</p>
+<?php endif; ?>
+```
+<br>
+Explicação:
+Essa página permite que os administradores e gestores visualizem a lista de usuários e realizem ações, como editar e excluir, dependendo do nível de acesso.
+
+Verificação de sessão:
+
+A página começa com uma verificação de sessão para garantir que o usuário esteja autenticado e tenha um perfil. Se a sessão não contiver o perfil do usuário, uma mensagem de erro é exibida.
+Exibição condicional das permissões:
+<br><br>
+Dependendo do perfil do usuário autenticado (Admin ou Gestor), diferentes ações são permitidas:<br>
+Admin: Pode editar e excluir usuários.<br>
+Gestor: Pode apenas editar usuários.<br>
+Colaboradores: Não têm permissão para editar ou excluir, sendo redirecionados para o Dashboard.<br>
+
+# Atualização no Controlador de Usuários
+Essa página deve ser referenciada no UserController para ser carregada corretamente quando o administrador ou gestor desejar visualizar a lista de usuários.
+
+Atualização no UserController:
+
+```
+class UserController {
+    public function list() {
+        session_start();
+
+        if (!isset($_SESSION['usuario_id']) || ($_SESSION['perfil'] != 'admin' && $_SESSION['perfil'] != 'gestor')) {
+            header('Location: index.php?action=dashboard');
+            exit();
+        }
+
+        $users = User::getAll(); // Obtém todos os usuários do banco de dados
+        include 'views/list_users.php';
+    }
+}
+```
+Explicação:
+O método list() do controlador verifica se o usuário está autenticado e se possui o perfil de Admin ou Gestor. Se o perfil for válido, ele carrega a página de lista de usuários (list_users.php).
+A função User::getAll() é usada para buscar todos os usuários cadastrados no sistema a partir do banco de dados, e a lista é exibida na tabela da página.
 
 
 # Funcionalidades
