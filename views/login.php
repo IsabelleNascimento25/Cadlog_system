@@ -7,77 +7,122 @@
     <title>Entrar</title>
 </head>
 <style>
-        * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+     /* Reset básico */
+     * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
+        /* Estilo do corpo */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+            margin: 0;
+        }
 
-main {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    width: 300px;
-    text-align: center;
-}
+        /* Estilização da caixa de login */
+        main {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            padding: 2.5rem;
+            width: 350px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
 
-h1 {
-    margin-bottom: 1rem;
-    color: #333;
-}
+        /* Efeito hover para crescer levemente a caixa */
+        main:hover {
+            transform: scale(1.05);
+        }
 
-input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    transition: border-color 0.3s;
-}
+        /* Título da tela de login */
+        h1 {
+            margin-bottom: 1.5rem;
+            color: #333;
+            font-size: 2rem;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
 
-input[type="email"]:focus,
-input[type="password"]:focus {
-    border-color: #007bff;
-    outline: none;
-}
+        /* Inputs de email e senha */
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, transform 0.2s ease;
+        }
 
-button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    transition: background-color 0.3s;
-}
+        /* Efeito ao focar nos campos */
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #007bff;
+            outline: none;
+            transform: scale(1.02);
+        }
 
-button:hover {
-    background-color: #0056b3;
-}
+        /* Botão de login */
+        button {
+            background-color: #333;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
 
-a {
-    display: block;
-    margin-top: 10px;
-    color: #007bff;
-    text-decoration: none;
-    transition: color 0.3s;
-}
+        /* Efeito hover no botão */
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
 
-a:hover {
-    color: #0056b3;
-}
+        /* Estilização do link "Cadastrar-se" */
+        a {
+            display: block;
+            margin-top: 15px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease, font-size 0.3s ease;
+        }
+
+        /* Efeito hover no link */
+        a:hover {
+            color: #0056b3;
+            font-size: 1.05rem;
+        }
+
+        /* Animação de transição suave ao abrir */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        main {
+            animation: fadeIn 0.6s ease-out;
+        }
 
     </style>
 <body>
