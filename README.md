@@ -27,11 +27,11 @@ O **Sistema de Gerenciamento de Usuários** é uma aplicação web que permite o
 
 ### 1. Tela de Registro de Usuário
 
-Esta tela permite que novos usuários se cadastrem no sistema. O formulário coleta informações como nome, email, senha e perfil.
+Esta tela permite que novos usuários se cadastrem no sistema. O formulário coleta informações como nome, e-mail, senha e perfil, permitindo que você escolha entre as opções de admin, gestor ou colaborador.
 
 **Exemplo de Formulário de Registro:**
 
-  <img src="img/login.png" width="200%"> <br>
+  <img src="img/cadastro.png" width="200%"> <br>
 
 ### 2. Tela de Login
 
@@ -39,17 +39,32 @@ A tela de login permite que usuários registrados acessem o sistema utilizando s
 
 **Exemplo de Formulário de Login:**
 
-  <img src="img/registro.png" width="200%"> <br>
+  <img src="img/login.png" width="200%"> <br>
 
 ### 3. Tela Inicial do Sistema
 
 Após o login, o usuário é direcionado para a tela inicial, onde pode acessar funcionalidades de acordo com seu perfil. Por exemplo, um administrador pode ter acesso a opções de gerenciamento de usuários, enquanto um colaborador pode visualizar suas tarefas.
 
+
+  **Exemplo de Tela Inicial do gestor:**
+
+
+  **Exemplo de Tela Inicial do colaborador:**
+  
+
+**Exemplo de Tela Inicial do admin:**
+Aqui 
+
+  <img src="img/inicio.png" width="200%"> <br>
+
+
+
+Após o login, o usuário é direcionado para a tela inicial, onde pode acessar funcionalidades de acordo com seu perfil. Por exemplo, um administrador pode ter acesso a opções de gerenciamento de usuários, enquanto um colaborador pode visualizar suas tarefas.
+
+
 **Exemplo de Tela Inicial:**
 
-(ainda nao formulada)
 
----
 
 ## Banco de Dados
 
